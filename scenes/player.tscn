@@ -1,0 +1,89 @@
+[gd_scene load_steps=13 format=3 uid="uid://bblqhtyuxank"]
+
+[ext_resource type="Texture2D" uid="uid://d2deqlrsqxcr6" path="res://assets/player.png" id="1_etl1f"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_y432y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p73f5"]
+atlas = ExtResource("1_etl1f")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eorg7"]
+atlas = ExtResource("1_etl1f")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u811r"]
+atlas = ExtResource("1_etl1f")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lhfwm"]
+atlas = ExtResource("1_etl1f")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frg6v"]
+atlas = ExtResource("1_etl1f")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fktmh"]
+atlas = ExtResource("1_etl1f")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8jipo"]
+atlas = ExtResource("1_etl1f")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i775d"]
+atlas = ExtResource("1_etl1f")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6mi41"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p73f5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eorg7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u811r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lhfwm")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_frg6v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fktmh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8jipo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i775d")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8kmqs"]
+radius = 5.09902
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_y432y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6mi41")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.651019
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_8kmqs")
