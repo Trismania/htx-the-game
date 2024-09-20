@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dla5a47hbko3i"]
+[gd_scene load_steps=6 format=3 uid="uid://dla5a47hbko3i"]
 
 [ext_resource type="Texture2D" uid="uid://c4m2derb5j6li" path="res://assets/levelTextures.png" id="1_yo33b"]
 [ext_resource type="PackedScene" uid="uid://bblqhtyuxank" path="res://scenes/player.tscn" id="2_n66ko"]
+[ext_resource type="PackedScene" uid="uid://iisuretcuh7m" path="res://scenes/hhx.tscn" id="3_llxs0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gi2n8"]
 texture = ExtResource("1_yo33b")
@@ -71,3 +72,6 @@ position = Vector2(99, 78)
 offset = Vector2(0, -30)
 zoom = Vector2(4, 4)
 position_smoothing_speed = 10.0
+
+[node name="HHX" parent="." instance=ExtResource("3_llxs0")]
+position = Vector2(161, 71)

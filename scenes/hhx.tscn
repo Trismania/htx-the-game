@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://iisuretcuh7m"]
+[gd_scene load_steps=11 format=3 uid="uid://iisuretcuh7m"]
 
+[ext_resource type="Script" path="res://scripts/hhx.gd" id="1_dikrv"]
 [ext_resource type="Texture2D" uid="uid://bhi60ilot0dfn" path="res://assets/HHX.png" id="1_n8u5i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u3mik"]
@@ -61,12 +62,13 @@ animations = [{
 radius = 5.0
 
 [node name="HHX" type="CharacterBody2D"]
+script = ExtResource("1_dikrv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_txwo0")
 animation = &"run"
 autoplay = "idle"
-frame_progress = 0.644244
+frame_progress = 0.515775
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 3)
