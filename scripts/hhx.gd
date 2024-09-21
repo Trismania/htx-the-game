@@ -5,19 +5,20 @@ var facing_right: bool = false
 var state: String = "walking"  # States: "walking" or "attacking"
 var attack_duration = 1.0  # Time to stay in attack mode
 var is_attacking = false  # To prevent multiple attacks
+const ATTACK_RANGE = 16  # 16 pixels or 1 tile
 
 @onready var ray_cast_left: RayCast2D = $RayCastLeft
 @onready var ray_cast_right: RayCast2D = $RayCastRight
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_timer: Timer = $AttackTimer
+@onready var healthbar: Control = $"../CanvasLayer/Healthbar"
+@onready var player: CharacterBody2D = $"."
 
 # Player and wall collision groups
 const GROUP_WALL = "walls"
 const GROUP_PLAYER = "players"
 
-func _ready():
-	# Ensure the attack timer is connected to the timeout function
-	attack_timer.connect("timeout", Callable(self, "_on_attack_timer_timeout"))
+
 
 func _physics_process(delta: float) -> void:
 	if state == "walking":
@@ -34,7 +35,7 @@ func _physics_process(delta: float) -> void:
 			if collider.is_in_group(GROUP_WALL):
 				flip()
 			# If the collider is a player, stop and attack
-			elif collider.is_in_group(GROUP_PLAYER) and not is_attacking:
+			elif collider.is_in_group(GROUP_PLAYER) and is_attacking == false:
 				start_attack()
 				
 		# Update velocity and move
@@ -57,9 +58,10 @@ func flip():
 
 func start_attack():
 	# Switch to attacking state
-	state = "attacking"
-	animated_sprite_2d.play("attack")  # Optionally play attack animation
 	is_attacking = true  # Lock further attacks
+	state = "attacking"
+	animated_sprite_2d.play("attack")  # Optionally play attack animationa 
+	
 	
 	# Only start the attack timer if it is not already running
 	if attack_timer.is_stopped():
@@ -67,8 +69,19 @@ func start_attack():
 		print("attack started")
 
 func _on_attack_timer_timeout() -> void:
+	if is_player_in_range():
+		healthbar.get_hurt()
+		print("Damage taken ")
+	
 	# Attack is over, go back to walking
 	state = "walking"
 	is_attacking = false  # Unlock attacking again
-	animated_sprite_2d.play("walk")  # Optionally switch back to walking animation
+	animated_sprite_2d.play("run")  # Optionally switch back to walking animation
 	print("attack finished")
+	
+func is_player_in_range() -> bool:
+	 # Calculate the distance between the enemy and the player
+	var distance = position.distance_to(player.position)
+	return distance <= ATTACK_RANGE  # Check if within attack range
+	
+	

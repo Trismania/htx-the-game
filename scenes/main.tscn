@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dla5a47hbko3i"]
+[gd_scene load_steps=13 format=3 uid="uid://dla5a47hbko3i"]
 
 [ext_resource type="Texture2D" uid="uid://c4m2derb5j6li" path="res://assets/levelTextures.png" id="1_yo33b"]
 [ext_resource type="PackedScene" uid="uid://bblqhtyuxank" path="res://scenes/player.tscn" id="2_n66ko"]
 [ext_resource type="PackedScene" uid="uid://iisuretcuh7m" path="res://scenes/hhx.tscn" id="3_llxs0"]
+[ext_resource type="Texture2D" uid="uid://33mx4jp4usbr" path="res://assets/hearts.png" id="4_fvct1"]
+[ext_resource type="Script" path="res://scripts/healthbar.gd" id="4_pfgku"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gi2n8"]
 texture = ExtResource("1_yo33b")
@@ -55,6 +57,57 @@ texture = ExtResource("1_yo33b")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_gi2n8")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_lns11"]
+atlas = ExtResource("4_fvct1")
+region = Rect2(0, 48, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_326bq"]
+atlas = ExtResource("4_fvct1")
+region = Rect2(0, 0, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ufvh"]
+atlas = ExtResource("4_fvct1")
+region = Rect2(0, 32, 64, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysin5"]
+atlas = ExtResource("4_fvct1")
+region = Rect2(0, 16, 64, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g0ju6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lns11")
+}],
+"loop": true,
+"name": &"four",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_326bq")
+}],
+"loop": true,
+"name": &"one",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ufvh")
+}],
+"loop": true,
+"name": &"three",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysin5")
+}],
+"loop": true,
+"name": &"two",
+"speed": 5.0
+}]
+
 [node name="main" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="." groups=["walls"]]
@@ -75,3 +128,22 @@ position_smoothing_speed = 10.0
 
 [node name="HHX" parent="." instance=ExtResource("3_llxs0")]
 position = Vector2(219, 77)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Healthbar" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+script = ExtResource("4_pfgku")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Healthbar"]
+position = Vector2(114, 10.5)
+scale = Vector2(3.5625, 3.5625)
+sprite_frames = SubResource("SpriteFrames_g0ju6")
+animation = &"one"
+autoplay = "four"
