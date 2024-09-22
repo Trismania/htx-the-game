@@ -115,5 +115,6 @@ target_position = Vector2(-6, 0)
 target_position = Vector2(7, 0)
 
 [node name="AttackTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
